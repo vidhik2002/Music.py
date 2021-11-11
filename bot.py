@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 
-bot = commands.Bot(command_prefix = "&", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix = "<>", intents=discord.Intents.all(),help_command=None)
 
 @bot.event
 async def on_ready():
@@ -52,4 +52,30 @@ async def all(ctx, *, args=None):
     else:
         await ctx.channel.send("You didn't provide proper a message.")
     
+async def get_help_embed():
+    em = discord.Embed(title="Help!", description="", color=discord.Color.purple())
+    em.description += f"**{bot.command_prefix}hello** : Greets the user.\n"
+    em.description += f"**{bot.command_prefix}repeat <message>** : Repeats the user message.\n"
+    em.description += f"**{bot.command_prefix}dm <user_id> <message>** : Dm to a particular user.\n"
+    em.description += f"**{bot.command_prefix}all <message>** : Dm to everyone on the server.\n"
+    em.set_footer(text="Thanks for using me!", icon_url=bot.user.avatar_url)
+    return em
+
+@bot.event
+async def on_ready():
+    print("Your bot is ready.")
+
+@bot.event
+async def on_message(message):
+    if bot.user.mentioned_in(message):
+        em = await get_help_embed()
+        await message.channel.send(embed=em)
+
+    await bot.process_commands(message)
+
+@bot.command()
+async def help(ctx):
+    em = await get_help_embed()
+    await ctx.send(embed=em)
+
 bot.run("<YOUR_TOKEN>")
