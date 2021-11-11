@@ -58,12 +58,11 @@ async def get_help_embed():
     em.description += f"**{bot.command_prefix}repeat <message>** : Repeats the user message.\n"
     em.description += f"**{bot.command_prefix}dm <user_id> <message>** : Dm to a particular user.\n"
     em.description += f"**{bot.command_prefix}all <message>** : Dm to everyone on the server.\n"
+    em.description += f"**{bot.command_prefix}help** : Displays this message.\n"
     em.set_footer(text="Thanks for using me!", icon_url=bot.user.avatar_url)
     return em
 
-@bot.event
-async def on_ready():
-    print("Your bot is ready.")
+
 
 @bot.event
 async def on_message(message):
