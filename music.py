@@ -1,3 +1,4 @@
+
 import asyncio
 import youtube_dl
 import pafy
@@ -65,12 +66,14 @@ async def get_help_embed():
     em.description += f"**{bot.command_prefix}dm <user_id> <message>** : Dm to a particular user.\n"
     em.description += f"**{bot.command_prefix}all <message>** : Dm to everyone on the server.\n"
     em.description += f"**{bot.command_prefix}help** : Displays this message.\n"
+    em.description += f"**{bot.command_prefix}join** : joins the voice channel.\n"
     em.description += f"**{bot.command_prefix}play <song>** : Plays the desired song.\n"
     em.description += f"**{bot.command_prefix}search <song>** : Searches for songs.\n"
     em.description += f"**{bot.command_prefix}queue** : Shows the queue.\n"
     em.description += f"**{bot.command_prefix}skip** : Skips the current song on vote.\n"
     em.description += f"**{bot.command_prefix}pause** : Pauses the current song.\n"
     em.description += f"**{bot.command_prefix}resume** : Resumes the current song.\n"
+    em.description += f"**{bot.command_prefix}leave** : Leaves the voice channel.\n"
     em.set_footer(text="Thanks for using me!", icon_url=bot.user.avatar_url)
     return em
 
@@ -213,7 +216,7 @@ class Player(commands.Cog):
         poll = discord.Embed(title=f"Vote to Skip Song by - {ctx.author.name}#{ctx.author.discriminator}", description="**80% of the voice channel must vote to skip for it to pass.**", colour=discord.Colour.blue())
         poll.add_field(name="Skip", value=":white_check_mark:")
         poll.add_field(name="Stay", value=":no_entry_sign:")
-        poll.set_footer(text="Voting ends in 15 seconds.")
+        poll.set_footer(text="Voting ends in 10 seconds.")
 
         poll_msg = await ctx.send(embed=poll) # only returns temporary message, we need to get the cached message to get the reactions
         poll_id = poll_msg.id
@@ -221,7 +224,7 @@ class Player(commands.Cog):
         await poll_msg.add_reaction(u"\u2705") # yes
         await poll_msg.add_reaction(u"\U0001F6AB") # no
         
-        await asyncio.sleep(15) # 15 seconds to vote
+        await asyncio.sleep(10) # 10 seconds to vote
 
         poll_msg = await ctx.channel.fetch_message(poll_id)
         
@@ -281,3 +284,4 @@ async def setup():
 bot.loop.create_task(setup())
 
 bot.run("<YOUR_TOKEN>")
+
