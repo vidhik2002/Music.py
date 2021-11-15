@@ -4,6 +4,8 @@ import youtube_dl
 import pafy
 import discord
 from discord.ext import commands
+import urllib.request
+import json
 
 intents = discord.Intents.default()
 intents.members = True
@@ -268,12 +270,20 @@ class Player(commands.Cog):
 
         embed = discord.Embed(title="Song Queue", description="", colour=discord.Colour.dark_gold())
         i = 1
-        for url in self.song_queue[ctx.guild.id]:
-            embed.description += f"{i}) {url}\n"
+        for song in self.song_queue[ctx.guild.id]:
+            params = {"format": "json", "url": f"{song}" }
+            url = "https://www.youtube.com/oembed"
+            query_string = urllib.parse.urlencode(params)
+            url = url + "?" + query_string
 
+            with urllib.request.urlopen(url) as response:
+                response_text = response.read()
+                data = json.loads(response_text.decode())
+                print(data['title'])
+            embed.description += f"{i}) {data['title']}\n"           
             i += 1
 
-        embed.set_footer(text="Thanks for using me!")
+        embed.set_footer(text="Thanks for using me, maybe u can eat me out later <3!")
         await ctx.send(embed=embed)
 
     @commands.command()
