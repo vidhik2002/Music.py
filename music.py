@@ -27,6 +27,78 @@ async def repeat(ctx, *, arg=None):
     else:
         await ctx.channel.send(str(ctx.author.mention) + " " + str(arg))
 
+#Emoji
+@bot.command()
+async def emoji(ctx,*, arg=None):
+    try:
+        if arg == "catdrink":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/1218-blobcatdrink.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "cookie":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/7307-blobcookie.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "flushed":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/6471-blobflushed.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "gun":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/1619-blobgun.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "axe":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/5005-blob-diamond-axe.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "pat":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/5289-blobpensivepat.gif")
+            await ctx.channel.send(embed=embed)
+        if arg == "cry":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/2936-crycat2.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "shutup":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/1108-vibing.gif")
+            await ctx.channel.send(embed=embed)
+        if arg == "scared":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/3613-pepe-with-jesus.png")
+            await ctx.channel.send(embed=embed)
+        if arg == "party":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/9056-peped.gif")
+            await ctx.channel.send(embed=embed)
+        if arg == "fu":
+            embed = discord.Embed()
+            embed.set_image(url="https://emoji.gg/assets/emoji/8399-pepe-fuck-you.png")
+            await ctx.channel.send(embed=embed)
+    except:
+        await ctx.channel.send("You forgot to include a valid argument.")
+#Snipe
+bot.sniped_messages = {}
+
+@bot.event
+async def on_message_delete(message):
+    bot.sniped_messages[message.guild.id] = (message.content, message.author, message.channel.name, message.created_at)
+
+@bot.command()
+async def snipe(ctx):
+    try:
+        contents, author, channel_name, time = bot.sniped_messages[ctx.guild.id]
+        
+    except:
+        await ctx.channel.send("Couldn't find a message to snipe!")
+        return
+
+    embed = discord.Embed(description=contents, color=discord.Color.purple(), timestamp=time)
+    embed.set_author(name=f"{author.name}#{author.discriminator}", icon_url=author.avatar_url)
+    embed.set_footer(text=f"Deleted in : #{channel_name}")
+
+    await ctx.channel.send(embed=embed)
+
 #Dm a user
 @bot.command()
 async def dm(ctx, user_id=None, *, args=None):
@@ -74,6 +146,8 @@ async def get_help_embed():
     em.description += f"**{bot.command_prefix}pause** : Pauses the current song.\n"
     em.description += f"**{bot.command_prefix}resume** : Resumes the current song.\n"
     em.description += f"**{bot.command_prefix}leave** : Leaves the voice channel.\n"
+    em.description += f"**{bot.command_prefix}emoji <emoji_args>** : Displays emojis.\n"
+    em.add_field(name="<emoji_args>", value="catdrink, cookie, flushed, gun, axe, pat, cry, shutup, scared, party, fu", inline=True)
     em.set_footer(text="Thanks for using me!", icon_url=bot.user.avatar_url)
     return em
 
