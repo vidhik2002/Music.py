@@ -23,6 +23,10 @@ Here are all the available commands in the bot!
 |  **<>leave**   |         Bot leaves the channel             |              |
 |  **<>sticker** |           Displays a sticker               |  \<arg>      
 
+
+### Pre-requisites
+Generate your token by creating a new bot application from - https://discord.com/developers/docs/intro
+
 ### Installation
 
 1. Clone the repo
