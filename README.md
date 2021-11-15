@@ -9,6 +9,7 @@ Here are all the available commands in the bot!
 |      Name      |              Description                   | Query        |
 |:---------------|:------------------------------------------:|-------------:|
 |  **<>hello**   |            Greets the User                 |              |
+|  **<>help**    |            Shows the help message          |              |
 |  **<>repeat**  |      Repeats whatever the user says        |  \<msg>      |      
 |**<>dm <user_id>**|     Sends a message to a specific user   |  \<msg>      |
 |  **<>all**     |  Sends a message to all members of server  |              | 
