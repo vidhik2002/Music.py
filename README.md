@@ -21,7 +21,9 @@ Here are all the available commands in the bot!
 |  **<>resume**  |        Resume the current song             |              |
 |  **<>skip**    |        Skip to the next song in queue      |              |
 |  **<>leave**   |         Bot leaves the channel             |              |
-|  **<>sticker** |           Displays a sticker               |  \<arg>      |
+|  **<>sticker** |           Displays a sticker               |  \<arg>      
+
+### Installation
 
 1. Clone the repo
 ```sh
