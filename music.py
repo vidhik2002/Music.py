@@ -29,7 +29,7 @@ async def repeat(ctx, *, arg=None):
 
 #Emoji
 @bot.command()
-async def emoji(ctx,*, arg=None):
+async def sticker(ctx,*, arg=None):
     try:
         if arg == "catdrink":
             embed = discord.Embed()
@@ -146,8 +146,8 @@ async def get_help_embed():
     em.description += f"**{bot.command_prefix}pause** : Pauses the current song.\n"
     em.description += f"**{bot.command_prefix}resume** : Resumes the current song.\n"
     em.description += f"**{bot.command_prefix}leave** : Leaves the voice channel.\n"
-    em.description += f"**{bot.command_prefix}emoji <emoji_args>** : Displays emojis.\n"
-    em.add_field(name="<emoji_args>", value="catdrink, cookie, flushed, gun, axe, pat, cry, shutup, scared, party, fu", inline=True)
+    em.description += f"**{bot.command_prefix}sticker <sticker_args>** : Display desired stickers.\n"
+    em.add_field(name="<sticker_args>", value="catdrink, cookie, flushed, gun, axe, pat, cry, shutup, scared, party, fu", inline=True)
     em.set_footer(text="Thanks for using me!", icon_url=bot.user.avatar_url)
     return em
 
