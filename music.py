@@ -182,8 +182,9 @@ class Player(commands.Cog):
 
     async def check_queue(self, ctx):
         if len(self.song_queue[ctx.guild.id]) > 0:
-            await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
-            self.song_queue[ctx.guild.id].pop(0)
+            await ctx.send("There are currently no songs in the queue.")
+            await asyncio.sleep(20)
+            return await ctx.voice_client.disconnect()
 
     async def search_song(self, amount, song, get_url=False):
         info = await self.bot.loop.run_in_executor(None, lambda: youtube_dl.YoutubeDL({"format" : "bestaudio", "quiet" : True}).extract_info(f"ytsearch{amount}:{song}", download=False, ie_key="YoutubeSearch"))
@@ -213,6 +214,7 @@ class Player(commands.Cog):
 
         await ctx.send("I am not connected to a voice channel.")
 
+    
     @commands.command()
     async def play(self, ctx, *, song=None):
         if song is None:
@@ -231,6 +233,7 @@ class Player(commands.Cog):
                 return await ctx.send("Sorry, I could not find the given song, try using my search command.")
 
             song = result[0]
+         
 
         if ctx.voice_client.source is not None:
             queue_len = len(self.song_queue[ctx.guild.id])
@@ -244,6 +247,7 @@ class Player(commands.Cog):
 
         await self.play_song(ctx, song)
         await ctx.send(f"Now playing: {song}")
+    
 
     @commands.command()
     async def search(self, ctx, *, song=None):
@@ -279,11 +283,10 @@ class Player(commands.Cog):
             with urllib.request.urlopen(url) as response:
                 response_text = response.read()
                 data = json.loads(response_text.decode())
-                print(data['title'])
             embed.description += f"{i}) {data['title']}\n"           
             i += 1
 
-        embed.set_footer(text="Thanks for using me, maybe u can eat me out later <3!")
+        embed.set_footer(text="Thanks for using me!")
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -367,5 +370,6 @@ async def setup():
 
 bot.loop.create_task(setup())
 
-bot.run("<YOUR_TOKEN>")
+# bot.run("<YOUR_TOKEN>")
+bot.run("OTA4Mjc5NTM1Mjk5MTAwNjgz.YYzbPA.ieDTK2XfuiEXFYE15wwnArzlGTI")
 
