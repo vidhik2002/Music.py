@@ -22,3 +22,16 @@ Here are all the available commands in the bot!
 |  **<>skip**    |        Skip to the next song in queue      |              |
 |  **<>leave**   |         Bot leaves the channel             |              |
 |  **<>sticker** |           Displays a sticker               |  \<arg>      |
+
+1. Clone the repo
+```sh
+git clone https://github.com/vidhik2002/Music.py.git
+```
+2. Move into folder
+```sh
+cd Music.py
+```
+3. Run the command
+```sh
+python music.py
+```
