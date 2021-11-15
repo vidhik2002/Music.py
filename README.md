@@ -1,5 +1,5 @@
-# Music.js
-A Music Bot with basic commands!
+# Music.py
+A Music Bot with basic commands made using python!
 
 ### Commands
 
