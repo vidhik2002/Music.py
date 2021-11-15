@@ -35,5 +35,6 @@ cd Music.py
 ```
 3. Run the command
 ```sh
+pip install -r requirements.txt
 python music.py
 ```

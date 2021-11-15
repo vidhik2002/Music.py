@@ -370,6 +370,5 @@ async def setup():
 
 bot.loop.create_task(setup())
 
-# bot.run("<YOUR_TOKEN>")
-bot.run("OTA4Mjc5NTM1Mjk5MTAwNjgz.YYzbPA.ieDTK2XfuiEXFYE15wwnArzlGTI")
+bot.run("<YOUR_TOKEN>")
 
