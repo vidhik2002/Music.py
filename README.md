@@ -1,5 +1,5 @@
-# Music.js
-A Music Bot with basic commands!
+# Music.py
+A Music Bot with basic commands made using python for your Discord Server!
 
 ### Commands
 
@@ -22,6 +22,9 @@ Here are all the available commands in the bot!
 |  **<>skip**    |        Skip to the next song in queue      |              |
 |  **<>leave**   |         Bot leaves the channel             |              |
 |  **<>sticker** |           Displays a sticker               |  \<arg>      
+
+### Pre-requisites
+Generate your token by creating a new bot application from - https://discord.com/developers/docs/intro
 
 ### Installation
 
