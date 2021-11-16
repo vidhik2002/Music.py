@@ -144,6 +144,7 @@ async def get_help_embed():
     em.description += f"**{bot.command_prefix}play <song>** : Plays the desired song.\n"
     em.description += f"**{bot.command_prefix}search <song>** : Searches for songs.\n"
     em.description += f"**{bot.command_prefix}queue** : Shows the queue.\n"
+    em.description += f"**{bot.command_prefix}clear** : Clears the queue.\n"
     em.description += f"**{bot.command_prefix}skip** : Skips the current song on vote.\n"
     em.description += f"**{bot.command_prefix}pause** : Pauses the current song.\n"
     em.description += f"**{bot.command_prefix}resume** : Resumes the current song.\n"
@@ -288,7 +289,7 @@ class Player(commands.Cog):
 
         embed.set_footer(text="Thanks for using me!")
         await ctx.send(embed=embed)
-        
+
     @commands.command()
     async def clear(self, ctx): # display the current guilds queue
         if len(self.song_queue[ctx.guild.id]) == 0:
