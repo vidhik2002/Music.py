@@ -288,6 +288,14 @@ class Player(commands.Cog):
 
         embed.set_footer(text="Thanks for using me!")
         await ctx.send(embed=embed)
+        
+    @commands.command()
+    async def clear(self, ctx): # display the current guilds queue
+        if len(self.song_queue[ctx.guild.id]) == 0:
+            return await ctx.send("There are currently no songs in the queue.")
+        else:
+            self.song_queue[ctx.guild.id] = []
+            return await ctx.send("Queue has been cleared.")
 
     @commands.command()
     async def skip(self, ctx):
