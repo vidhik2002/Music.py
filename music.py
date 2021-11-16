@@ -218,6 +218,7 @@ class Player(commands.Cog):
     
     @commands.command()
     async def play(self, ctx, *, song=None):
+        await ctx.author.voice.channel.connect()
         if song is None:
             return await ctx.send("You must include a song to play.")
 

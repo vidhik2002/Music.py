@@ -17,7 +17,7 @@ Here are all the available commands in the bot!
 |  **<>join**    |         Bot joins a channel                |  \<song>     |
 |  **<>play**    |        Plays a song from youtube           |              |
 |  **<>queue**   |             See the queue                  |              |
-|  **<>clear**   |             Clears the queue               |              |
+|  **<>clear**   |            Clears the queue                |              |
 |  **<>pause**   |         Pause the current song             |              |
 |  **<>resume**  |        Resume the current song             |              |
 |  **<>skip**    |        Skip to the next song in queue      |              |
