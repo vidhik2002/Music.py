@@ -183,9 +183,9 @@ class Player(commands.Cog):
 
     async def check_queue(self, ctx):
         if len(self.song_queue[ctx.guild.id]) > 0:
-            await ctx.send("There are currently no songs in the queue.")
-            await asyncio.sleep(20)
-            return await ctx.voice_client.disconnect()
+            await self.play_song(ctx, self.song_queue[ctx.guild.id][0])
+            self.song_queue[ctx.guild.id].pop(0)
+            
 
     async def search_song(self, amount, song, get_url=False):
         info = await self.bot.loop.run_in_executor(None, lambda: youtube_dl.YoutubeDL({"format" : "bestaudio", "quiet" : True}).extract_info(f"ytsearch{amount}:{song}", download=False, ie_key="YoutubeSearch"))
@@ -218,7 +218,7 @@ class Player(commands.Cog):
     
     @commands.command()
     async def play(self, ctx, *, song=None):
-        await ctx.author.voice.channel.connect()
+        
         if song is None:
             return await ctx.send("You must include a song to play.")
 
