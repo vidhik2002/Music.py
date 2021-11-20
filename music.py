@@ -6,6 +6,7 @@ import discord
 from discord.ext import commands
 import urllib.request
 import json
+import random
 
 intents = discord.Intents.default()
 intents.members = True
@@ -28,6 +29,20 @@ async def repeat(ctx, *, arg=None):
         await ctx.channel.send("You forgot to include an argument.")
     else:
         await ctx.channel.send(str(ctx.author.mention) + " " + str(arg))
+
+#coinflip
+@bot.command()
+async def coinflip(ctx):
+    names = ['Head', 'Tail']
+    choice = random.choice(names)
+    if choice =='Head':
+        embed = discord.Embed()
+        embed.set_image(url="https://i.imgur.com/lPOdYEk.png")
+        await ctx.channel.send(embed=embed)
+    else:
+        embed = discord.Embed()
+        embed.set_image(url="https://i.imgur.com/wEMAaf6.png")
+        await ctx.channel.send(embed=embed)
 
 #Emoji
 @bot.command()
@@ -137,6 +152,7 @@ async def get_help_embed():
     em = discord.Embed(title="Help!", description="", color=discord.Color.purple())
     em.description += f"**{bot.command_prefix}hello** : Greets the user.\n"
     em.description += f"**{bot.command_prefix}repeat <message>** : Repeats the user message.\n"
+    em.description += f"**{bot.command_prefix}coinflip** : Flips a coin.\n"
     em.description += f"**{bot.command_prefix}dm <user_id> <message>** : Dm to a particular user.\n"
     em.description += f"**{bot.command_prefix}all <message>** : Dm to everyone on the server.\n"
     em.description += f"**{bot.command_prefix}help** : Displays this message.\n"
@@ -310,46 +326,46 @@ class Player(commands.Cog):
         if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
             return await ctx.send("I am not currently playing any songs for you.")
 
-        poll = discord.Embed(title=f"Vote to Skip Song by - {ctx.author.name}#{ctx.author.discriminator}", description="**80% of the voice channel must vote to skip for it to pass.**", colour=discord.Colour.blue())
-        poll.add_field(name="Skip", value=":white_check_mark:")
-        poll.add_field(name="Stay", value=":no_entry_sign:")
-        poll.set_footer(text="Voting ends in 10 seconds.")
+        # poll = discord.Embed(title=f"Vote to Skip Song by - {ctx.author.name}#{ctx.author.discriminator}", description="**80% of the voice channel must vote to skip for it to pass.**", colour=discord.Colour.blue())
+        # poll.add_field(name="Skip", value=":white_check_mark:")
+        # poll.add_field(name="Stay", value=":no_entry_sign:")
+        # poll.set_footer(text="Voting ends in 10 seconds.")
 
-        poll_msg = await ctx.send(embed=poll) # only returns temporary message, we need to get the cached message to get the reactions
-        poll_id = poll_msg.id
+        # poll_msg = await ctx.send(embed=poll) # only returns temporary message, we need to get the cached message to get the reactions
+        # poll_id = poll_msg.id
 
-        await poll_msg.add_reaction(u"\u2705") # yes
-        await poll_msg.add_reaction(u"\U0001F6AB") # no
+        # await poll_msg.add_reaction(u"\u2705") # yes
+        # await poll_msg.add_reaction(u"\U0001F6AB") # no
         
-        await asyncio.sleep(10) # 10 seconds to vote
+        # await asyncio.sleep(10) # 10 seconds to vote
 
-        poll_msg = await ctx.channel.fetch_message(poll_id)
+        # poll_msg = await ctx.channel.fetch_message(poll_id)
         
-        votes = {u"\u2705": 0, u"\U0001F6AB": 0}
-        reacted = []
+        # votes = {u"\u2705": 0, u"\U0001F6AB": 0}
+        # reacted = []
 
-        for reaction in poll_msg.reactions:
-            if reaction.emoji in [u"\u2705", u"\U0001F6AB"]:
-                async for user in reaction.users():
-                    if user.voice.channel.id == ctx.voice_client.channel.id and user.id not in reacted and not user.bot:
-                        votes[reaction.emoji] += 1
+        # for reaction in poll_msg.reactions:
+        #     if reaction.emoji in [u"\u2705", u"\U0001F6AB"]:
+        #         async for user in reaction.users():
+        #             if user.voice.channel.id == ctx.voice_client.channel.id and user.id not in reacted and not user.bot:
+        #                 votes[reaction.emoji] += 1
 
-                        reacted.append(user.id)
+        #                 reacted.append(user.id)
 
-        skip = False
+        skip = True
 
-        if votes[u"\u2705"] > 0:
-            if votes[u"\U0001F6AB"] == 0 or votes[u"\u2705"] / (votes[u"\u2705"] + votes[u"\U0001F6AB"]) > 0.79: # 80% or higher
-                skip = True
-                embed = discord.Embed(title="Skip Successful", description="***Voting to skip the current song was succesful, skipping now.***", colour=discord.Colour.green())
+        # if votes[u"\u2705"] > 0:
+        #     if votes[u"\U0001F6AB"] == 0 or votes[u"\u2705"] / (votes[u"\u2705"] + votes[u"\U0001F6AB"]) > 0.79: # 80% or higher
+        #         skip = True
+        #         embed = discord.Embed(title="Skip Successful", description="***Voting to skip the current song was succesful, skipping now.***", colour=discord.Colour.green())
 
-        if not skip:
-            embed = discord.Embed(title="Skip Failed", description="*Voting to skip the current song has failed.*\n\n**Voting failed, the vote requires at least 80% of the members to skip.**", colour=discord.Colour.red())
+        # if not skip:
+        #     embed = discord.Embed(title="Skip Failed", description="*Voting to skip the current song has failed.*\n\n**Voting failed, the vote requires at least 80% of the members to skip.**", colour=discord.Colour.red())
 
-        embed.set_footer(text="Voting has ended.")
+        # embed.set_footer(text="Voting has ended.")
 
-        await poll_msg.clear_reactions()
-        await poll_msg.edit(embed=embed)
+        # await poll_msg.clear_reactions()
+        # await poll_msg.edit(embed=embed)
 
         if skip:
             ctx.voice_client.stop()
@@ -381,4 +397,5 @@ async def setup():
 bot.loop.create_task(setup())
 
 bot.run("<YOUR_TOKEN>")
+
 
